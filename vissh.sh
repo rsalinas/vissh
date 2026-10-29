@@ -118,7 +118,7 @@ fi
 # ---------------------------------------------------------------------------
 
 if [[ $# -lt 1 ]]; then
-    echo "Usage: vissh <host> [--all]"
+    echo "Usage: vissh <host> [--all|--dump]"
     echo "       vissh git <subcommand> [args...]"
     exit 1
 fi
@@ -233,6 +233,17 @@ fi
 
 best="${sorted[0]}"
 IFS=: read -r score file line pattern <<<"$best"
+
+# Print the matching Host block: from its Host line up to the next Host/Match.
+if [[ "$SHOW_ALL" == "--dump" ]]; then
+    echo "# ${file}:${line}"
+    awk -v start="$line" '
+        NR < start { next }
+        NR > start && tolower($1) ~ /^(host|match)$/ { exit }
+        { print }
+    ' "$file"
+    exit 0
+fi
 
 # ---------------------------------------------------------------------------
 # SSH config syntax validation

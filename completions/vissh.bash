@@ -13,7 +13,7 @@ _vissh() {
             if [[ "${COMP_WORDS[1]}" == "git" ]]; then
                 COMPREPLY=($(compgen -W "init log diff status show blame add commit reset restore clean push fetch" -- "$cur"))
             else
-                COMPREPLY=($(compgen -W "--all" -- "$cur"))
+                COMPREPLY=($(compgen -W "--all --dump" -- "$cur"))
             fi
             ;;
         *)

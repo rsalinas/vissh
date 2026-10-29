@@ -66,6 +66,14 @@ vissh <host> --all
 
 Prints every matching `Host` pattern with its file and line number, sorted by specificity (most specific first).
 
+### Dump a host block
+
+```
+vissh <host> --dump
+```
+
+Prints the best-matching `Host` block as written in the file (from its `Host` line up to the next `Host`/`Match`), preceded by a `# file:line` comment. For the effective config ssh would actually use (all matching blocks merged), use `ssh -G <host>`.
+
 ### List all hosts (used by tab completion)
 
 ```
@@ -150,4 +158,4 @@ make install PREFIX=/usr/local
 Completion covers:
 - `vissh <TAB>` — all known SSH hosts + `git`
 - `vissh git <TAB>` — git subcommands (`init`, `log`, `diff`, `status`, …)
-- `vissh <host> <TAB>` — `--all`
+- `vissh <host> <TAB>` — `--all`, `--dump`
